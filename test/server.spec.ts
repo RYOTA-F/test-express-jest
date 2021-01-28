@@ -1,13 +1,11 @@
 import request from 'supertest'
-import { AppServer } from '../src/server'
+import app from '../app'
 
-describe('GET /', () => {
+describe('GET /api/tests', () => {
   it('return 200 and correct message', () => {
-    const server = new AppServer()
-
-    return request(server.app)
-      .get('/')
+    return request(app)
+      .get('/api/tests')
       .expect(200)
-      .expect({ message: 'AppServer started' })
+      .expect({ data: 'get_tests実行' })
   })
 })

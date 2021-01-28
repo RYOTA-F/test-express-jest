@@ -4,9 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "start": "nodemon",
     "tsc": "tsc",
     "ts-node": "ts-node  index.ts",
-    "nodemon": "nodemon",
     "test": "jest"
   },
   "jest": {

@@ -15,8 +15,8 @@ export class AppServer {
   }
 
   public start() {
-    this.app.listen({ port: 4000 }, () => {
-      console.log(`server on http://localhost:4000`)
+    this.app.listen({ port: 3000 }, () => {
+      console.log(`server on http://localhost:3000`)
     })
   }
 }
