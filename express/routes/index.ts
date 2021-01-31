@@ -1,6 +1,6 @@
 import Express from 'express'
-import tests from './tests/testsController'
-import users from './users/usersController'
+import tests from './tests'
+import users from './users'
 
 const router = Express.Router()
 
