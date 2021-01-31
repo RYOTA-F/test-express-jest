@@ -1,0 +1,42 @@
+version: "3"
+services:
+  server:
+    container_name: server_container
+    build: ./docker/express
+    ports:
+      - 3000:3000
+    volumes:
+      - ./express:/express
+    tty: true
+    environment:
+      CHOKIDAR_USEPOLLING: 1
+      TZ: Asia/Tokyo
+    command: yarn nodemon
+    networks:
+      - default
+    depends_on:
+      - db
+
+  db:
+    container_name: db_container
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql/conf/my.cnf:/etc/mysql/conf.d/mysql.cnf
+      - ./mysql/init_db:/docker-entrypoint-initdb.d
+      - jest_test:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - TZ="Asia/Tokyo"
+    networks:
+      - default
+
+networks:
+  default:
+
+volumes:
+  jest_test:
