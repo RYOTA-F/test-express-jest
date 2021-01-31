@@ -6,7 +6,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./express:/express
+      - ./express:/express:delegated
     tty: true
     environment:
       CHOKIDAR_USEPOLLING: 1
