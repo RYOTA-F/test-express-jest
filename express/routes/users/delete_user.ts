@@ -40,7 +40,7 @@ export class DeleteUser {
 
       await data.destroy()
 
-      return this.handler.json({ data: true })
+      return this.handler.json(true)
     } catch (err) {
       return this.handler.error(NO_DATA_EXISTS)
     }

@@ -77,14 +77,14 @@ describe('POST /api/users/', () => {
       })
   })
 
-  // it('更新成功', () => {
-  //   return request(app)
-  //     .post('/api/users')
-  //     .send('name=test_name')
-  //     .send('age=111')
-  //     .expect(200)
-  //     .expect({ data: true })
-  // })
+  it('作成成功', () => {
+    return request(app)
+      .post('/api/users')
+      .send('name=test_name')
+      .send('age=111')
+      .expect(200)
+      .expect({ data: true })
+  })
 })
 
 describe('PUT /api/users/:user_id', () => {
@@ -162,5 +162,11 @@ describe('DELETE /api/users/:user_id', () => {
           message: 'No data exists.',
         },
       })
+  })
+
+  it('削除成功', () => {
+    return request(app).delete('/api/users/11').expect(200).expect({
+      data: true,
+    })
   })
 })
