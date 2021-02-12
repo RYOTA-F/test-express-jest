@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { Request, Response, response } from 'express'
 import { Handler } from '../../core/handler'
 import { PARAMETER_INVALID, NO_DATA_EXISTS } from '../../constants/error'
 import { User } from '../../models/index'
@@ -8,16 +8,14 @@ type Params = {
 }
 
 type Data = {
-  id: number
-  name: string
-  age: number
+  data: boolean
 }
 
-export class GetUserById {
+export class DeleteUser {
   handler: Handler
   params: Params
 
-  constructor(req: Request, res: Response) {
+  constructor(req: any, res: any) {
     this.handler = new Handler(req, res)
 
     this.params = {
@@ -29,22 +27,31 @@ export class GetUserById {
    * メイン処理
    */
   async main() {
-    if (!Number(this.params.user_id)) {
-      return this.handler.error(PARAMETER_INVALID)
-    }
+    try {
+      if (!this.params.user_id) {
+        return this.handler.error(PARAMETER_INVALID)
+      }
 
-    const data = await this.getUser()
+      const data = await this.getUser()
 
-    if (!data) {
+      if (!data) {
+        return this.handler.error(NO_DATA_EXISTS)
+      }
+
+      await data.destroy()
+
+      return this.handler.json({ data: true })
+    } catch (err) {
       return this.handler.error(NO_DATA_EXISTS)
     }
-
-    return this.handler.json<Data>(data)
   }
 
+  /**
+   * 対象のユーザーを取得
+   */
   getUser() {
     return User.findOne({
-      attributes: ['id', 'name', 'age'],
+      attributes: ['id'],
       where: {
         id: this.params.user_id,
       },

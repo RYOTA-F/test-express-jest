@@ -31,7 +31,7 @@ export class PutUser {
    * メイン処理
    */
   async main() {
-    if (!this.params.user_id || !Object.keys(this.body).length) {
+    if (!Number(this.params.user_id) || !Object.keys(this.body).length) {
       return this.handler.error(PARAMETER_INVALID)
     }
 
